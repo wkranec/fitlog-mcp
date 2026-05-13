@@ -1,0 +1,37 @@
+# This file documents the exercise YAML schema.
+# Copy and adapt it to create your own exercise files.
+# Real exercise files (vault/exercises/*.yaml) are gitignored.
+
+ring_rows:
+  name: Ring Rows
+  load_type: bodyweight          # bodyweight | weighted | timed
+  # description: >
+  #   Brief description of the exercise.
+  # instructions: >
+  #   Step-by-step instructions.
+  # aliases:
+  #   - row
+  #   - ring row
+  # category: bodyweight
+  # body_areas:
+  #   primary: [back, biceps]
+  #   secondary: [core, rear_delts]
+  # equipment: rings
+  # notes: >
+  #   Additional notes.
+
+barbell_press:
+  name: Barbell Press
+  load_type: weighted
+  # description: >
+  #   Horizontal pushing movement.
+  # instructions: >
+  #   Lie on bench, lower bar to chest, press up.
+  # aliases:
+  #   - bench press
+  #   - press
+  # category: weighted
+  # body_areas:
+  #   primary: [chest, triceps]
+  #   secondary: [front_delts]
+  # equipment: barbell, bench

@@ -216,3 +216,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# fitlog-mcp vault data (but not vault/exercises/example.yaml)
+vault/logs/
+vault/goals.yaml
+vault/exercises/*.yaml
+!vault/exercises/example.yaml
