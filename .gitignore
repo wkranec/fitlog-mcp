@@ -217,6 +217,9 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# Claude Code session data
+.claude/
+
 # fitlog-mcp vault data (but not vault/exercises/example.yaml)
 vault/logs/
 vault/goals.yaml
