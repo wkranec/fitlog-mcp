@@ -41,15 +41,7 @@ async def value_error_handler(request, exc):
 
 @app.exception_handler(ValidationError)
 async def validation_error_handler(request, exc):
-    # Pydantic v2 errors() may include non-serializable objects in 'ctx'; strip them.
-    errors = []
-    for err in exc.errors(include_url=False):
-        err = dict(err)
-        if "ctx" in err:
-            ctx = err["ctx"]
-            err["ctx"] = {k: str(v) for k, v in ctx.items()}
-        errors.append(err)
-    return JSONResponse(status_code=422, content={"detail": errors})
+    return JSONResponse(status_code=422, content=json.loads(exc.json()))
 
 
 # ---------------------------------------------------------------------------
