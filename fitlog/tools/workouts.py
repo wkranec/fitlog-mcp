@@ -67,6 +67,7 @@ _SET_MODEL_MAP = {
     "bodyweight": BodyweightSet,
     "weighted": WeightedSet,
     "timed": TimedSet,
+    "breathwork": TimedSet,
 }
 
 VALID_LOAD_TYPES = frozenset(_SET_MODEL_MAP.keys())

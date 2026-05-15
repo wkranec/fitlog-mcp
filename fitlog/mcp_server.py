@@ -234,6 +234,34 @@ def log_timed_exercise(
                         notes=notes, raw_input=raw_input)
 
 
+@mcp.tool()
+def log_breathwork_exercise(
+    date: str,
+    exercise_id: str,
+    duration_minutes: int,
+    duration_seconds_remainder: int = 0,
+    notes: str | None = None,
+    raw_input: str | None = None,
+) -> dict:
+    """Log a breath work session.
+
+    Use this for box breathing, body scans, super ventilation, and similar practices.
+    If the exercise_id doesn't exist yet, call create_exercise first with load_type='breathwork'.
+
+    Args:
+        date: ISO 8601 date string, e.g. "2025-05-13"
+        exercise_id: Exercise identifier, e.g. "box_breathing"
+        duration_minutes: Total whole minutes of the session, e.g. 10
+        duration_seconds_remainder: Additional seconds beyond the full minutes (0-59), e.g. 30
+        notes: Optional free-text note about this session
+        raw_input: Optional original voice or text input from the user
+    """
+    total_seconds = duration_minutes * 60 + duration_seconds_remainder
+    sets = [{"duration_seconds": float(total_seconds)}]
+    return log_exercise(_vault(), date=date, exercise_id=exercise_id, sets=sets,
+                        notes=notes, raw_input=raw_input)
+
+
 # ---------------------------------------------------------------------------
 # Analysis tools
 # ---------------------------------------------------------------------------

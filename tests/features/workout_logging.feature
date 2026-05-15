@@ -222,3 +222,59 @@ Feature: Workout logging tool
     Given a temporary vault directory
     When I call create_exercise with id "ring-rows" name "Ring Rows" load_type "bodyweight"
     Then a workout error is raised
+
+  # ---------------------------------------------------------------------------
+  # breathwork — 22. Log a breathwork exercise
+  # ---------------------------------------------------------------------------
+
+  Scenario: Log a breathwork exercise
+    Given a temporary vault directory
+    And an exercise "box_breathing" with name "Box Breathing" and load_type "breathwork" exists in the vault
+    When I call log_exercise with date "2025-05-13" exercise "box_breathing" and sets [{"duration_seconds": 300.0}]
+    Then the result status is "ok"
+    And the result exercise_id is "box_breathing"
+    And the result sets_logged is 1
+
+  # ---------------------------------------------------------------------------
+  # breathwork — 23. Create a breathwork exercise
+  # ---------------------------------------------------------------------------
+
+  Scenario: Create a breathwork exercise
+    Given a temporary vault directory
+    When I call create_exercise with id "box_breathing" name "Box Breathing" load_type "breathwork"
+    Then the result status is "ok"
+    And the exercise file "exercises/box_breathing.yaml" exists in the vault
+    And the exercise file contains load_type "breathwork"
+
+  # ---------------------------------------------------------------------------
+  # breathwork — 24. Breathwork set with reps field → rejected
+  # ---------------------------------------------------------------------------
+
+  Scenario: Breathwork set with reps field is rejected
+    Given a temporary vault directory
+    And an exercise "box_breathing" with name "Box Breathing" and load_type "breathwork" exists in the vault
+    When I call log_exercise with date "2025-05-13" exercise "box_breathing" and sets [{"reps": 10}]
+    Then a workout error is raised
+    And no workout file is written
+
+  # ---------------------------------------------------------------------------
+  # breathwork — 25. Breathwork set with weight field → rejected
+  # ---------------------------------------------------------------------------
+
+  Scenario: Breathwork set with weight field is rejected
+    Given a temporary vault directory
+    And an exercise "box_breathing" with name "Box Breathing" and load_type "breathwork" exists in the vault
+    When I call log_exercise with date "2025-05-13" exercise "box_breathing" and sets [{"duration_seconds": 60.0, "weight": 10.0}]
+    Then a workout error is raised
+    And no workout file is written
+
+  # ---------------------------------------------------------------------------
+  # breathwork — 26. Breathwork set with negative duration_seconds → rejected
+  # ---------------------------------------------------------------------------
+
+  Scenario: Breathwork set with negative duration_seconds is rejected
+    Given a temporary vault directory
+    And an exercise "box_breathing" with name "Box Breathing" and load_type "breathwork" exists in the vault
+    When I call log_exercise with date "2025-05-13" exercise "box_breathing" and sets [{"duration_seconds": -30.0}]
+    Then a workout error is raised
+    And no workout file is written

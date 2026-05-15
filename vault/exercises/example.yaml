@@ -35,3 +35,14 @@ barbell_press:
   #   primary: [chest, triceps]
   #   secondary: [front_delts]
   # equipment: barbell, bench
+
+box_breathing:
+  name: Box Breathing
+  load_type: breathwork
+  # description: >
+  #   Inhale 4 counts, hold 4 counts, exhale 4 counts, hold 4 counts.
+  # instructions: >
+  #   Sit comfortably. Breathe in through nose for 4 counts, hold 4,
+  #   exhale through mouth for 4, hold empty for 4. Repeat.
+  # notes: >
+  #   Good for stress reduction and focus.
