@@ -427,6 +427,55 @@ def get_session_count(
 
 
 # ---------------------------------------------------------------------------
+# Goal analysis tools
+# ---------------------------------------------------------------------------
+
+@mcp.tool()
+def list_goals() -> dict:
+    """List all goals defined in goals.yaml with their IDs, descriptions, and types.
+
+    Returns an empty list if goals.yaml does not exist yet.
+    """
+    from fitlog.analysis.goals import list_goals as _list_goals
+    return _list_goals(_vault())
+
+
+@mcp.tool()
+def check_goal_status(goal_id: str, as_of_date: str | None = None) -> dict:
+    """Check the current status of a goal: met/not-met, latest value, streak, and 30-day compliance rate.
+
+    Args:
+        goal_id: The goal identifier as defined in goals.yaml, e.g. "daily_sleep"
+        as_of_date: ISO date to evaluate as "today" (default: actual today)
+    """
+    from fitlog.analysis.goals import check_goal_status as _check
+    return _check(_vault(), goal_id=goal_id, as_of_date=as_of_date)
+
+
+@mcp.tool()
+def get_goal_history(
+    goal_id: str,
+    days: int = 30,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> dict:
+    """Get day-by-day or period-by-period history for a goal.
+
+    Only dates/periods with relevant data are included in the history list.
+    If start_date or end_date is provided, the days parameter is ignored.
+
+    Args:
+        goal_id: The goal identifier as defined in goals.yaml, e.g. "daily_sleep"
+        days: Number of days/periods to look back (default 30)
+        start_date: Optional ISO date string for the start of the window
+        end_date: Optional ISO date string for the end of the window
+    """
+    from fitlog.analysis.goals import get_goal_history as _get_history
+    return _get_history(_vault(), goal_id=goal_id, days=days,
+                        start_date=start_date, end_date=end_date)
+
+
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 
