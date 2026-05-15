@@ -1,0 +1,63 @@
+# fitlog goals — copy this file to goals.yaml and customise.
+# goals.yaml is gitignored; this example file is the schema reference.
+
+goals:
+
+  # ── Metric goals ─────────────────────────────────────────────────────────
+  # Checks whether a logged health metric meets a daily threshold.
+  # Supported metrics: weight, hrv, sleep, resting_hr, blood_pressure, spo2
+  # Supported operators: ">=", "<=", ">", "<", "=="
+
+  daily_sleep:
+    description: "Sleep at least 8 hours per night"
+    type: metric
+    metric: sleep          # top-level key in the metrics log entry
+    field: duration_hours  # subfield within that metric object
+    operator: ">="
+    target: 8.0
+    # Optional date bounds — omit for open-ended goals:
+    # start_date: "2025-01-01"
+    # end_date:   "2025-12-31"
+
+  target_weight:
+    description: "Reach 175 lbs by June 1"
+    type: metric
+    metric: weight
+    field: value
+    operator: "<="
+    target: 175.0
+    end_date: "2025-06-01"
+
+  # ── Activity goals ────────────────────────────────────────────────────────
+  # Checks whether the total duration of specific exercises on a given day
+  # meets a threshold. exercise_ids lists which exercises count;
+  # an empty list means any exercise counts.
+
+  daily_meditation:
+    description: "Meditate at least 12 minutes per day"
+    type: activity
+    exercise_ids:
+      - meditation          # exercise IDs that count toward this goal
+    target_minutes: 12.0   # daily duration target in minutes
+    operator: ">="
+    # start_date / end_date optional
+
+  daily_breathwork:
+    description: "Any 10 minutes of breath work per day"
+    type: activity
+    exercise_ids: []        # empty = any exercise in the workout log
+    target_minutes: 10.0
+    operator: ">="
+
+  # ── Frequency goals ───────────────────────────────────────────────────────
+  # Checks whether exercises appear on enough calendar days within each
+  # week or month. exercise_ids works the same as above.
+
+  weekly_workouts:
+    description: "Work out at least 4 days per week"
+    type: frequency
+    exercise_ids: []        # empty = any logged exercise counts
+    period: week            # "week" (Mon–Sun) or "month"
+    operator: ">="
+    target: 4               # minimum number of days per period
+    # start_date / end_date optional
