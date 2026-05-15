@@ -7,15 +7,14 @@ name = "fitlog-mcp"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi==0.115.12",
-    "uvicorn[standard]==0.34.2",
+    "fastmcp>=2.0,<3.0",
     "pydantic==2.11.4",
     "pydantic-settings==2.9.1",
     "PyYAML==6.0.2",
 ]
 
 [project.scripts]
-dev = "fitlog.server:run_dev"
+fitlog-mcp = "fitlog.mcp_server:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
